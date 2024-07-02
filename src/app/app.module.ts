@@ -19,6 +19,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
+import { SidebarComponent } from './Interface/Components/sidebar/sidebar.component';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { ListComunityComponent } from './Interface/Components/list-comunity/list-comunity.component';
+import { JoinComunityComponent } from './Interface/Components/join-comunity/join-comunity.component';
+import { SidebarInqComponent } from './Interface/Components/sidebar-inq/sidebar-inq.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -31,7 +38,11 @@ import { MatCardModule } from '@angular/material/card';
     RegisterRetComponent,
     ArrendadorDashComponent,
     InquilinoDashComponent,
-    CreateComunityComponent
+    CreateComunityComponent,
+    SidebarComponent,
+    ListComunityComponent,
+    JoinComunityComponent,
+    SidebarInqComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +55,9 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
+    MatIconModule,
+    MatListModule,
+    MatMenuModule,
     AppRoutingModule,
     FormsModule
 

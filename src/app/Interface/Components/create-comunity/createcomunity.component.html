@@ -1,42 +1,24 @@
-<!-- createcomunity.component.html -->
-<div class="container mx-auto p-4">
-  <div class="w-full mb-4">
-    <h2>Nombre Usuario :P</h2>
-  </div>
+<div class="container p-4 floating-box">
+  <h4 class="title">Crear Comunidad</h4>
+  <form [formGroup]="communityForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre de la comunidad" />
+      <mat-error *ngIf="communityForm.get('name')?.invalid && (communityForm.get('name')?.touched || communityForm.get('name')?.dirty)">
+        {{ getErrorMessage('name') }}
+      </mat-error>
+    </mat-form-field>
 
-  <div class="flex">
-    <div class="w-1/4 p-4 border-r floating-box">
-      <h4>Crear Comunidad</h4>
-      <form [formGroup]="communityForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name" placeholder="Nombre de la comunidad" />
-          <mat-error *ngIf="communityForm.get('name')">{{ getErrorMessage('name') }}</mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" placeholder="Descripción de la comunidad"></textarea>
+      <mat-error *ngIf="communityForm.get('description')?.invalid && (communityForm.get('description')?.touched || communityForm.get('description')?.dirty)">
+        {{ getErrorMessage('description') }}
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Descripción</mat-label>
-          <textarea matInput formControlName="description" placeholder="Descripción de la comunidad"></textarea>
-          <mat-error *ngIf="communityForm.get('description')">{{ getErrorMessage('description') }}</mat-error>
-        </mat-form-field>
-
-        <div class="mt-4">
-          <button mat-raised-button color="primary" type="submit" [disabled]="communityForm.invalid">Crear</button>
-        </div>
-      </form>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="communityForm.invalid">Crear</button>
     </div>
-
-    <div class="w-3/4 p-4">
-      <h4>Comunidades Existentes</h4>
-      <div class="community-list">
-        <mat-card *ngFor="let community of communities" class="community-card">
-          <mat-card-title>{{ community.name }}</mat-card-title>
-          <mat-card-content>{{ community.description }}</mat-card-content>
-          <mat-card-actions>
-            <button mat-button color="primary">Unirse</button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
-  </div>
+  </form>
 </div>

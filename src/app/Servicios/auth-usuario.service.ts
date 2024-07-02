@@ -1,82 +1,119 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import baserUrl from './helper';
+import { jwtDecode } from 'jwt-decode';
+
+
+interface JwtPayload {
+  id: number;
+  username: string;
+  role: string;
+  userId: number;
+  nombre: string;
+  apellido: string;
+}
+
+export interface UsuarioDTO {
+  id: number;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  dni: string;
+  username: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthUsuarioService {
-  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
-  private userName = new BehaviorSubject<string>(this.getUserName());
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  private currentUserRole = new BehaviorSubject<string>('');
+  private currentUserName = new BehaviorSubject<string>('');  // Nombre completo del usuario
+  private currentUserUsername = new BehaviorSubject<string>('');  // Nombre de usuario
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.checkToken();
+  }
 
   public login(username: string, password: string): Observable<any> {
     const loginData = { username, password };
     return this.http.post(`${baserUrl}/users/login`, loginData).pipe(
       map((response: any) => {
-        if (response.message && response.message.startsWith('Bienvenido')) {
-          this.setUserSession({ username, role: response.role });
-          this.loggedIn.next(true);
-          this.userName.next(username);
-          return { success: true, message: response.message, role: response.role };
-        }
-        return { success: false, message: response.message };
+        console.log('Login Response:', response);  // Depuración
+        const token = response.token;
+        this.setToken(token);
+        const decodedToken = jwtDecode<JwtPayload>(token);
+        console.log('Decoded Token:', decodedToken);  // Depuración
+        this.currentUserRole.next(decodedToken.role);
+        this.currentUserName.next(`${decodedToken.nombre} ${decodedToken.apellido}`);  // Almacenar el nombre completo
+        this.currentUserUsername.next(decodedToken.username);
+        return { success: true, role: decodedToken.role };  // Devuelve un objeto con success
+      }),
+      catchError(error => {
+        console.error('Login Error:', error);  // Depuración
+        return throwError(error);
       })
     );
   }
 
   public register(user: any): Observable<any> {
-    return this.http.post(`${baserUrl}/users/register`, user).pipe(
-      map((response: any) => {
-        if (response && response.message) {
-          return { success: true, message: response.message };
-        } else {
-          throw new Error('Unexpected response format');
-        }
-      })
-    );
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(`${baserUrl}/users/register`, user, { headers });
   }
 
-  private setUserSession(data: any) {
-    localStorage.setItem('user', JSON.stringify(data));
+  public setToken(token: string): void {
+    localStorage.setItem('token', token);
+    this.loggedIn.next(true);
   }
 
-  public logout() {
-    localStorage.removeItem('user');
+  public getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token');
     this.loggedIn.next(false);
-    this.userName.next('');
+    this.currentUserRole.next('');
+    this.currentUserName.next('');  // Limpiar el nombre de usuario
   }
 
-  public isLoggedIn(): boolean {
-    return localStorage.getItem('user') !== null;
+  public getRole(): Observable<string> {
+    return this.currentUserRole.asObservable();
   }
 
-  public getCurrentUserRole(): string {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      return user.role || '';
+  public getUserName(): Observable<string> {  // Nuevo método para obtener el nombre completo del usuario
+    return this.currentUserName.asObservable();
+  }
+
+  public getUsername(): Observable<string> {
+    return this.currentUserUsername.asObservable();  // Nuevo método para obtener el username
+  }
+
+  private checkToken(): void {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = jwtDecode<JwtPayload>(token);
+      this.currentUserRole.next(decodedToken.role);
+      this.currentUserName.next(`${decodedToken.nombre} ${decodedToken.apellido}`);  // Almacenar el nombre completo al verificar el token
+      this.currentUserUsername.next(decodedToken.username);
+      this.loggedIn.next(true);
     }
-    return '';
   }
 
-  public getUserName(): string {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      return user.username || '';
-    }
-    return '';
-  }
-
-  public isLoggedInObservable(): Observable<boolean> {
+  public isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-  public getUserNameObservable(): Observable<string> {
-    return this.userName.asObservable();
+  public getUsuarioId(): number | null {
+    const token = this.getToken();
+    if (token) {
+      const decoded: JwtPayload = jwtDecode(token);
+      console.log('Token decodificado:', decoded); // Depuración
+      return decoded.userId || null;
+    }
+    return null;
   }
 }

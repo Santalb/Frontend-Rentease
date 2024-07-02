@@ -1,23 +1,24 @@
-/* createcomunity.component.css */
 .container {
   display: flex;
   flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-.flex {
-  display: flex;
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-1/4 {
-  width: 25%;
-}
-
-.w-3/4 {
-  width: 75%;
 }
 
 .mb-4 {
@@ -28,36 +29,27 @@
   padding: 16px;
 }
 
-.border-r {
-  border-right: 1px solid #ccc;
-}
-
 .floating-box {
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
-.community-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.community-card {
-  flex: 1 1 calc(33% - 16px);
-  box-sizing: border-box;
+mat-form-field {
   margin-bottom: 16px;
 }
 
-@media (max-width: 768px) {
-  .community-card {
-    flex: 1 1 calc(50% - 16px);
-  }
+.button-container {
+  text-align: center;
 }
 
-@media (max-width: 480px) {
-  .community-card {
-    flex: 1 1 100%;
-  }
+button[mat-raised-button] {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+mat-error {
+  color: #e74c3c;
+  font-size: 14px;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ComunityV1Service, Community } from '../../../Servicios/comunity-v1.service';
+import { ComunityV1Service } from '../../../Servicios/comunity-v1.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -10,8 +10,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateComunityComponent implements OnInit {
   communityForm: FormGroup;
-  communities: Community[] = [];
-  displayedColumns: string[] = ['name', 'description'];
 
   constructor(
     private fb: FormBuilder,
@@ -24,9 +22,7 @@ export class CreateComunityComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loadCommunities();
-  }
+  ngOnInit(): void {}
 
   getErrorMessage(controlName: string): string {
     const control = this.communityForm.get(controlName);
@@ -45,19 +41,11 @@ export class CreateComunityComponent implements OnInit {
         response => {
           this.snackBar.open('Comunidad creada exitosamente', 'Cerrar', { duration: 3000 });
           this.communityForm.reset();
-          this.loadCommunities(); // Recargar la lista de comunidades después de crear una nueva
         },
         error => {
           this.snackBar.open('Error al crear la comunidad', 'Cerrar', { duration: 3000 });
         }
       );
     }
-  }
-
-  loadCommunities(): void {
-    this.communityService.getCommunities().subscribe(
-      data => this.communities = data,
-      error => console.error('Error fetching communities', error)
-    );
   }
 }

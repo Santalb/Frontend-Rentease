@@ -1,0 +1,17 @@
+<div class="container p-4">
+  <h4>Comunidades en las que estás unido</h4>
+  <div class="community-list">
+    <mat-card *ngFor="let community of communities" class="community-card">
+      <div class="community-info">
+        <div class="community-details">
+          <mat-card-title>{{ community.name }}</mat-card-title>
+          <mat-card-content>{{ community.description }}</mat-card-content>
+        </div>
+        <div class="community-actions">
+          <div class="members-count">Miembros: {{ community.membersCount }}</div>
+          <button mat-button color="primary">Ver detalles</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

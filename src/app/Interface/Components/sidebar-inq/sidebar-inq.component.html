@@ -1,0 +1,16 @@
+<mat-nav-list>
+  <ng-container *ngFor="let item of menuItems; let i = index">
+    <mat-list-item>
+      <button mat-button (click)="toggleSubmenu(i)">
+        {{ item.label }}
+      </button>
+    </mat-list-item>
+    <div *ngIf="isSubmenuOpen(i)" class="submenu">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let subItem of item.subItems">
+          <button mat-button [routerLink]="subItem.link">{{ subItem.label }}</button>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </ng-container>
+</mat-nav-list>

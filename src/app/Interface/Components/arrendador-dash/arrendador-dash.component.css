@@ -1,0 +1,45 @@
+/* arrendador-dash.component.css */
+
+.header {
+  background-color: #e5e7eb; /* Gris claro */
+  margin-bottom: 0;
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6; /* Gris muy claro */
+}
+
+.text-2xl {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+.text-gray-800 {
+  color: #2d3748;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb; /* Gris claro */
+}
+
+.p-6 {
+  padding: 1.5rem;
+}

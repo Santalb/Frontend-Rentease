@@ -1,0 +1,63 @@
+:host {
+  @apply h-full w-64 bg-gray-200 p-4;
+}
+
+/* sidebar.component.css */
+
+mat-list-item button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  text-transform: none;
+  font-size: 14px;
+  color: #000;
+  display: flex;
+  justify-content: flex-start;
+}
+
+mat-nav-list {
+  padding: 0;
+}
+
+.submenu {
+  padding-left: 20px;
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.submenu-open {
+  max-height: 200px; /* Ajusta según la cantidad de subelementos */
+  overflow: visible;
+}
+
+mat-list-item {
+  display: block;
+  cursor: pointer;
+}
+
+.submenu mat-list-item {
+  padding-left: 20px;
+  font-size: 12px;
+  color: #333;
+}
+
+.submenu mat-list-item button {
+  width: calc(100% - 20px);
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

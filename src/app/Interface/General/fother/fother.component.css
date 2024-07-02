@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.footer-icon {
+  @apply flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 text-white transition duration-200;
+}
+
+.footer-icon:hover {
+  @apply bg-opacity-75;
+}
+
+.footer-tooltip {
+  @apply absolute text-sm bg-white text-gray-900 px-2 py-1 rounded shadow-lg opacity-0 pointer-events-none transition-opacity duration-300;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.footer-tooltip::before {
+  @apply absolute bg-white content-[''] h-2 w-2 -bottom-1 left-1/2 transform -translate-x-1/2 rotate-45;
+}
+
+.group:hover .footer-tooltip {
+  @apply opacity-100;
+}
+
+.facebook {
+  @apply text-blue-600;
+}
+
+.twitter {
+  @apply text-blue-400;
+}
+
+.instagram {
+  @apply text-pink-600;
+}
+
+.github {
+  @apply text-gray-800;
+}
+
+.youtube {
+  @apply text-red-600;
+}

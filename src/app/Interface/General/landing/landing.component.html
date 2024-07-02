@@ -1,1 +1,96 @@
-<p>landing works!</p>
+<!-- Header -->
+<header class="relative">
+  <img src="path_to_image.jpg" alt="Background Image" class="w-full h-screen object-cover">
+  <div class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50">
+    <h1 class="text-white text-4xl font-bold">Comodidad, Convivencia y Comunidad</h1>
+    <p class="text-white text-center max-w-2xl mt-4">
+      “Nuestra plataforma te ofrece una amplia selección de habitaciones para estudiantes diseñadas para brindarte la comodidad que necesitas para concentrarte en tus estudios”
+    </p>
+  </div>
+</header>
+
+<!-- About Us -->
+<section class="py-12 bg-white text-gray-800">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold mb-8">Quienes somos nosotros?</h2>
+    <p class="mb-4">
+      Somos un grupo de universitarios que, conscientes de las dificultades que enfrentan nuestros compañeros y muchos otros estudiantes al buscar alojamiento adecuado...
+    </p>
+    <h3 class="text-2xl font-bold mt-8">Misión:</h3>
+    <p class="mb-4">
+      Nuestra misión es facilitar a los estudiantes universitarios de áreas remotas o distintas a la sede central, acceso a alojamiento asequible y confiable...
+    </p>
+    <h3 class="text-2xl font-bold mt-8">Visión:</h3>
+    <p>
+      Aspiramos a ser la principal referencia para estudiantes universitarios que buscan alojamiento en áreas alejadas de su hogar...
+    </p>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="py-12 bg-gray-100 text-gray-800">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold mb-8">Funciones en nuestra Plataforma</h2>
+    <div class="flex flex-wrap -mx-4">
+      <div class="w-full sm:w-1/2 md:w-1/4 px-4 mb-8" *ngFor="let feature of features">
+        <div class="relative group">
+          <img [src]="feature.image" alt="Feature Image" class="w-full h-64 object-cover rounded-lg">
+          <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg">
+            <span class="text-white text-lg">{{ feature.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="py-12 bg-white text-gray-800">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center">Equipo de Trabajo</h2>
+    <div class="flex justify-center space-x-8">
+      <div class="text-center" *ngFor="let member of team">
+        <img [src]="member.photo" alt="{{ member.name }}" class="w-32 h-32 rounded-full mx-auto">
+        <h3 class="text-xl font-bold mt-4">{{ member.name }}</h3>
+        <p>{{ member.role }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="py-12 bg-gray-100 text-gray-800">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center">Comentarios y Soporte Técnico</h2>
+    <div class="flex flex-wrap justify-center space-x-8">
+      <div class="w-full sm:w-1/2 md:w-1/4 p-4 bg-white shadow rounded-lg">
+        <h3 class="text-xl font-bold mb-4 text-center">Comentarios</h3>
+        <form>
+          <mat-form-field class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre">
+          </mat-form-field>
+          <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email">
+          </mat-form-field>
+          <mat-form-field class="w-full">
+            <mat-label>Comentarios</mat-label>
+            <textarea matInput placeholder="Comentarios"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="w-full">Enviar</button>
+        </form>
+      </div>
+      <div class="w-full sm:w-1/2 md:w-1/4 p-4 bg-white shadow rounded-lg">
+        <h3 class="text-xl font-bold mb-4 text-center">Soporte Técnico</h3>
+        <form>
+          <mat-form-field class="w-full">
+            <mat-label>Déjanos saber tus dudas</mat-label>
+            <textarea matInput placeholder="Déjanos saber tus dudas"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="w-full">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
